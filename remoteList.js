@@ -19,13 +19,15 @@ app.get('/', function (req, res) {
 	downloads.reverse();
 	var sortedDownloads = [];
 	downloads.forEach(function(file){
+		var fileName = file;
 		var filePath = downloadsDir + file;
 		var fileDate = fs.statSync(filePath).mtime.getTime()
 		var fromNow = moment(fileDate).fromNow();
 		var fileObject = {
 			"path" : filePath,
 			"time" : fileDate,
-			"fromNow": fromNow
+			"fromNow": fromNow,
+			"name" : fileName
 		};
 		sortedDownloads.push(fileObject);
 	});
