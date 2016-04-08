@@ -1,4 +1,10 @@
 {
 	"remotePort": 3030,
-	"downloadsDir": "/exmaple/path/"
+	"expressPort": 1337,
+	"downloadsDir": "/example/path/",
+	"whatUsername" : "",
+	"whatPassword" : "",
+	"remoteUrl": "",
+	"remoteSSHPath" : "example@path.com"
+
 }
