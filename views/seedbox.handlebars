@@ -1,24 +1,58 @@
-<div class="row" ng-controller="RuneBoxCtrl">
-	<div clas="col-xs-12 col-md-8 ">
-		<h1>What.cd Artist Top</h1>
-		<div class="table-responsive">
-			<table class="table table-striped table-sm">
-			  <thead class="thead-inverse">
-			    <tr>
-			    	<th>#</th>
-			    	<th>Title</th>
-			    	<th>Date</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			    <tr ng-repeat="download in downloads">
-			    	<td>\{{ $index + 1 }}</td>
-			      	<td><a href="#" ng-click="makeDownload(download)" class="downloadLink">\{{download.name}}</a></td>
-			      	<td>\{{download.fromNow}}</td>
-			    </tr>
-			  </tbody>
-			</table>
+<div ng-controller="RuneBoxCtrl">
+	<div class="row">
+		<div clas="col-xs-12 col-md-8 ">
+			<h1>Seedbox download</h1>
+			<div class="table-responsive">
+				<table class="table table-striped table-sm">
+				  <thead class="thead-inverse">
+				    <tr>
+				    	<th>#</th>
+				    	<th>Title</th>
+				    	<th>Date</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr ng-repeat="download in downloads">
+				    	<td>\{{ $index + 1 }}</td>
+				      	<td><a href="#" ng-click="selectDir(download)" class="downloadLink">\{{download.name}}</a></td>
+				      	<td>\{{download.fromNow}}</td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
 		</div>
+	</div>
+	<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="selectDirectory" aria-hidden="true" id="selectDirModal">
+	 	<div class="modal-dialog modal-lg">
+		    <div class="modal-content">
+		    	<div class="modal-header">
+		    		<h4 class="modal-title">Select directory</h4>
+		    	</div>
+		    	<div class="modal-body">
+		    		<div class="row">
+		    			<div class="col-xs-12 col-md-8">
+		    				<div class="radio" ng-repeat="dir in dirs">
+		    					<label>
+		      						<input type="radio" name="optionsRadios"  ng-click="setDir(dir)" />
+		      						\{{dir}}
+		    					</label>
+		  					</div>
+		    			</div>
+		    			<div class="col-xs-12 col-md-4">
+		    				<fieldset class="form-group">
+								<label for="selectedOrNewDir">Selected directory</label>
+								<input type="text" class="form-control" id="selectedOrNewDir" ng-model="newDir">
+								<small class="text-muted">Type a name to create a new one.</small>
+							</fieldset>
+		    			</div>
+		    		</div>
+		    	</div>
+		    	<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" ng-click="doDownload()">Save changes</button>
+				</div>
+		    </div>
+	 	</div>
 	</div>
 </div>
 <script type="text/javascript">

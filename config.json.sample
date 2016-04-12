@@ -5,6 +5,7 @@
 	"whatUsername" : "",
 	"whatPassword" : "",
 	"remoteUrl": "",
-	"remoteSSHPath" : "example@path.com"
+	"remoteSSHPath" : "example@path.com",
+	"localDownloadDir": "./downloads/"
 
 }

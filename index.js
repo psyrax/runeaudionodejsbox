@@ -9,6 +9,7 @@ var express = require('express');
 var exphbs  = require('express-handlebars');
 var superagent = require('superagent');
 var bodyParser = require('body-parser');
+var fs = require('fs');
 
 /* Express setup */
 var app = express();
@@ -42,11 +43,26 @@ app.get('/seedbox', function(req, res){
   });
 });
 
+app.get('/ls', function(req,res ){
+  var ls = fs.readdirSync(config.localDownloadDir);
+  ls.sort(function(a, b) {
+    if(a.toLowerCase() < b.toLowerCase()) return -1;
+    if(a.toLowerCase() > b.toLowerCase()) return 1;
+    return 0;
+  });
+  res.json(ls);
+});
+
 app.post('/scp', function(req, res){
   console.log(req.body);
   res.json('ok');
+  var localDir = config.localDownloadDir + req.body.target + "/";
+  var remoteDir = req.body.dir.path + '/';
+  if (!fs.existsSync(localDir)){
+    fs.mkdirSync(localDir);
+  };
   const spawn = require('child_process').spawn;
-  const scp = spawn('scp', ['-r', config.remoteSSHPath+':' + bashEscape(req.body.data.path) +  '/', './']);
+  const scp = spawn('scp', ['-r', config.remoteSSHPath+':' + bashEscape(remoteDir) , localDir]);
 
   scp.stdout.on('data', (data) => {
     console.log(`stdout: ${data}`);
