@@ -5,6 +5,9 @@ var shell = require('shelljs');
 var selectedPort;
 var prevVol = 0;
 var dataCheck = 0;
+
+
+console.log('looking for ports');
 serialport.list(function (err, ports) {
   ports.forEach(function(port) {
     if ( typeof port.manufacturer!= "undefined" && port.manufacturer.indexOf("Arduino") != null ){

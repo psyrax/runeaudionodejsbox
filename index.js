@@ -16,6 +16,9 @@ var path = require('path');
 var app = express();
 var hbs = exphbs.create({defaultLayout:'main'});
 
+/*Serial port init*/
+require('./serialPort.js');
+
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.use(express.static('static'));
