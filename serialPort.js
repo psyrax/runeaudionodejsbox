@@ -34,7 +34,7 @@ function runPort(port){
 			console.log('change to:', absVol );
 			console.log('from:', prevVol);
 			prevVol = absVol;
-			changeVol(controlData.volume);
+			changeVol(absVol);
 		};
 		
 		if ( controlData.toggle ){
