@@ -4,7 +4,7 @@ var shell = require('shelljs');
 
 var selectedPort;
 var prevVol = 0;
-
+var dataCheck = 0;
 serialport.list(function (err, ports) {
   ports.forEach(function(port) {
     if ( typeof port.manufacturer!= "undefined" && port.manufacturer.indexOf("Arduino") != null ){
@@ -25,22 +25,33 @@ function runPort(port){
 			}
 			console.log('Port open');
 	});
-	selectedPort.on('data', function (data) {
+	selectedPort.on('data', function (data) {	
+
 		controlData = JSON.parse(data);
-		console.log("vol:", controlData.volume);
 		if ( prevVol != controlData.volume ){
 			//setVol
-			console.log('change to:', controlData.volume);
+			var absVol = 100 - parseInt(controlData.volume);
+			console.log('change to:', absVol );
 			console.log('from:', prevVol);
+			prevVol = absVol;
 			changeVol(controlData.volume);
 		};
-		prevVol = controlData.volume;
+		
+		if ( controlData.toggle ){
+
+		}
+		
 	});
 	
 }
 
 function changeVol(vol){
 	if (shell.exec('amixer -c 1 sset PCM,0 '+ vol + '%').code !== 0) {
+  		console.log('Error: Volume change failed');
+	}
+}
+function toggleMusic(){
+	if (shell.exec('mpc toggle').code !== 0) {
   		console.log('Error: Volume change failed');
 	}
 }
