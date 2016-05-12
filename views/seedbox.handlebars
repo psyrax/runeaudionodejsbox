@@ -31,12 +31,9 @@
 		    	<div class="modal-body">
 		    		<div class="row">
 		    			<div class="col-xs-12 col-md-8">
-		    				<div class="radio" ng-repeat="dir in dirs">
-		    					<label>
-		      						<input type="radio" name="optionsRadios"  ng-click="setDir(dir)" />
-		      						\{{dir}}
-		    					</label>
-		  					</div>
+		    				<select ng-model="existingDir" class="form-control">
+		      					<option ng-repeat="dir in dirs" value="\{{dir}}"> \{{dir}} </option>
+		    				</select>
 		    			</div>
 		    			<div class="col-xs-12 col-md-4">
 		    				<fieldset class="form-group">

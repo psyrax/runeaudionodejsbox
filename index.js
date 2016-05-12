@@ -10,6 +10,7 @@ var exphbs  = require('express-handlebars');
 var superagent = require('superagent');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var path = require('path');
 
 /* Express setup */
 var app = express();
@@ -44,12 +45,15 @@ app.get('/seedbox', function(req, res){
 });
 
 app.get('/ls', function(req,res ){
-  var ls = fs.readdirSync(config.localDownloadDir);
+  var ls = fs.readdirSync(config.localDownloadDir).filter(function(file){
+    return fs.statSync(path.join(config.localDownloadDir, file)).isDirectory();
+  });
   ls.sort(function(a, b) {
     if(a.toLowerCase() < b.toLowerCase()) return -1;
     if(a.toLowerCase() > b.toLowerCase()) return 1;
     return 0;
   });
+
   res.json(ls);
 });
 

@@ -2,6 +2,7 @@ var runeBox = angular.module('runeBox', []);
 
 runeBox.controller('RuneBoxCtrl', function($scope, $http){
 	$scope.downloads = _downloads;
+	$scope.existingDir;
 	$scope.selectDir = function(downloadObject){
 		$scope.selectedDownload = downloadObject;	
 		$('#selectDirModal').modal('show');
@@ -10,9 +11,7 @@ runeBox.controller('RuneBoxCtrl', function($scope, $http){
 			$scope.dirs = dirList.data;			
 		});
 	};
-	$scope.setDir = function(dir){
-		 $scope.existingDir = dir;
-	};
+
 	$scope.doDownload = function(){
 		if ( typeof $scope.newDir != "undefined" && $scope.newDir.length > 0 ){
 			$scope.targetDir = $scope.newDir;
