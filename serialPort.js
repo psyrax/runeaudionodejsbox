@@ -6,15 +6,19 @@ var selectedPort;
 var prevVol = 0;
 var dataCheck = 0;
 
+connectToPort();
 
-console.log('looking for ports');
-serialport.list(function (err, ports) {
-  ports.forEach(function(port) {
-    if ( typeof port.manufacturer!= "undefined" && port.manufacturer.indexOf("Arduino") != null ){
-    	runPort(port);
-    }
-  });
-});
+function connectToPort(){
+	console.log('looking for ports');
+	serialport.list(function (err, ports) {
+  		ports.forEach(function(port) {
+    		if ( typeof port.manufacturer!= "undefined" && port.manufacturer.indexOf("Arduino") != null ){
+    			runPort(port);
+    		}
+  		});
+	});
+};
+
 
 function runPort(port){
 	console.log('selected: ', port.comName);
@@ -45,6 +49,14 @@ function runPort(port){
 		}
 		
 	});
+
+	selectedPort.on('disconnect', function(){
+		console.log('disconnected');
+	});
+
+	selectedPort.on('error', function(error){
+		console.log('error:', error);
+	})
 	
 }
 
