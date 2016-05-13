@@ -40,8 +40,8 @@ function runPort(port){
 			changeVol(absVol);
 		};
 		
-		if ( controlData.toggle ){
-
+		if ( controlData.button > 400 ){
+			toggleMusic();
 		}
 		
 	});
