@@ -33,7 +33,7 @@ function runPort(port){
 		controlData = JSON.parse(data);
 		if ( prevVol != controlData.volume ){
 			//setVol
-			var absVol = 100 - parseInt(controlData.volume);
+			var absVol = parseInt(controlData.volume);
 			console.log('change to:', absVol );
 			console.log('from:', prevVol);
 			prevVol = absVol;
