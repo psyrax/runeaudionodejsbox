@@ -1,6 +1,7 @@
 var serialport = require('serialport');
 var SerialPort = serialport.SerialPort;
 var shell = require('shelljs');
+shell.config.silent = true;
 
 var selectedPort;
 var prevVol = 0;
