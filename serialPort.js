@@ -8,7 +8,6 @@ var prevVol = 0;
 var dataCheck = 0;
 
 
-console.log('looking for ports');
 serialport.list(function (err, ports) {
   ports.forEach(function(port) {
     if ( typeof port.manufacturer!= "undefined" && port.manufacturer.indexOf("Arduino") != null ){
@@ -18,7 +17,6 @@ serialport.list(function (err, ports) {
 });
 
 function runPort(port){
-	console.log('selected: ', port.comName);
 	selectedPort = new SerialPort( port.comName, {
 		parser: serialport.parsers.readline('\n'),
 		baudrate: 9600
@@ -27,7 +25,6 @@ function runPort(port){
 			if (err) {
 			return console.log('Error opening port: ', err.message);
 			}
-			console.log('Port open');
 	});
 	selectedPort.on('data', function (data) {	
 
@@ -35,8 +32,7 @@ function runPort(port){
 		if ( prevVol != controlData.volume ){
 			//setVol
 			var absVol = 100 - parseInt(controlData.volume);
-			console.log('change to:', absVol );
-			console.log('from:', prevVol);
+
 			prevVol = absVol;
 			changeVol(absVol);
 		};
