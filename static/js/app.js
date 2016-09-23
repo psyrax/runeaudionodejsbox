@@ -1,3 +1,17 @@
+$('document').ready(function(){
+	var baffleHeader = baffle('.baffleHeader', {
+		speed: 100
+	}).start();
+	function revealBaffle(){
+		baffleHeader.reveal(1500);
+	};
+	revealBaffle();
+	setInterval(function(){
+		baffleHeader.start();
+		baffleHeader.reveal(2000);
+	}, 5000)
+});
+
 var runeBox = angular.module('runeBox', []);
 
 runeBox.controller('RuneBoxCtrl', function($scope, $http){
