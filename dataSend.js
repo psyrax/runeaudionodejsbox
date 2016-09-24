@@ -1,8 +1,10 @@
 var os = require('os');
 var moment = require('moment');
-var api_key = 'key-47408ab1316002c4dbefd62888b2cdf7';
-var domain = 'updates.oglabs.info';
-var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+var config = require('./config.json');
+var mailgun = require('mailgun-js')({
+  apiKey: config.mailgunAPIKey, 
+  domain: config.mailgunDomain
+});
 
 var ifaces = os.networkInterfaces();
 var addresses = [];
