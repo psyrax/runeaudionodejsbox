@@ -10,6 +10,14 @@ var mopidy = new Mopidy({
 mopidy.on("state:online", function () {
     mopidyConnected = true;
     mopidy.playback.getCurrentTlTrack().then(function(data){
+  		//console.log(data);
+	});
+	searchMopidy();
+});
+
+function searchMopidy(){
+	mopidy.library.search({"query":"cranes"}).then(function(data){
   		console.log(data);
 	});
-});
+}
+

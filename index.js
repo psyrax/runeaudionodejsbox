@@ -4,7 +4,7 @@ var config = require("./config.json");
 /* Dependecy load */
 var WhatCD = require("whatcd");
 var _ = require("underscore");
-var client = new WhatCD("https://what.cd", config.whatUsername, config.whatPassword);
+var client = new WhatCD("https://apollo.rip", config.whatUsername, config.whatPassword);
 var express = require('express');
 var exphbs  = require('express-handlebars');
 var superagent = require('superagent');
