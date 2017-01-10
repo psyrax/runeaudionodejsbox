@@ -14,6 +14,14 @@ $('document').ready(function(){
 
 var runeBox = angular.module('runeBox', []);
 
+runeBox.controller('HomeCtrl', function($scope, $http){
+	$http.get('/currentUser')
+	.then(function(user){
+		console.log(user);
+		$scope.currentUser = user.data;
+	});
+})
+
 runeBox.controller('RuneBoxCtrl', function($scope, $http){
 	$scope.downloads = _downloads;
 	$scope.existingDir;

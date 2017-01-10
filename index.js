@@ -48,6 +48,12 @@ app.get('/seedbox', function(req, res){
   });
 });
 
+app.get('/currentUser', function(req, res){
+  getCurrentUserInfo(function(userData){
+    res.json(userData);
+  });
+})
+
 app.get('/ls', function(req,res ){
   var ls = fs.readdirSync(config.localDownloadDir).filter(function(file){
     return fs.statSync(path.join(config.localDownloadDir, file)).isDirectory();
@@ -117,6 +123,16 @@ function getArtist(params, callback){
     uniqueFlacs.reverse();
     callback(uniqueFlacs);
   });
+}
+
+function getCurrentUserInfo(callback){
+  client.index(function(error, data){
+    if (error) {
+      console.log(error);
+    }
+    console.log("currentUser",data);
+    callback(data);
+  })
 }
 
 // Implement bash string escaping.

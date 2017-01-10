@@ -10,14 +10,12 @@ var mopidy = new Mopidy({
 mopidy.on("state:online", function () {
     mopidyConnected = true;
     mopidy.playback.getCurrentTlTrack().then(function(data){
-  		//console.log(data);
-	});
-	searchMopidy();
+  		console.log(data);
+    });
 });
 
-function searchMopidy(){
-	mopidy.library.search({"query":"cranes"}).then(function(data){
-  		console.log(data);
-	});
-}
-
+mopidy.on("event:trackPlaybackStarted", function () {
+    mopidy.playback.getCurrentTlTrack().then(function(data){
+      console.log(data);
+    });
+});
