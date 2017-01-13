@@ -14,6 +14,31 @@ $('document').ready(function(){
 
 var runeBox = angular.module('runeBox', []);
 
+runeBox.controller('PlayerCtrl',function($scope, $http){
+	var mopidy = new Mopidy({
+    	webSocketUrl: "ws://raspberrypi.local:6680/mopidy/ws/",
+    	callingConvention: "by-position-or-by-name"
+	});
+	mopidy.on("state:online", function () {
+	    mopidyConnected = true;
+	    mopidy.playback.getCurrentTlTrack().then(function(data){
+	    	handleTrack(data.track);
+	    });
+	});
+
+	mopidy.on("event:trackPlaybackStarted", function () {
+	    mopidy.playback.getCurrentTlTrack().then(function(data){
+	    	handleTrack(data.track);
+	    });
+	})
+	function handleTrack(track){
+	  $scope.currentTrack = track;
+      $scope.currentTrack.formattedTime = moment(track.length).format('mm:ss');
+      $scope.$apply();
+      console.log($scope.currentTrack);
+	}
+})
+
 runeBox.controller('HomeCtrl', function($scope, $http){
 	$http.get('/currentUser')
 	.then(function(user){
