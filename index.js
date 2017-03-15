@@ -17,8 +17,8 @@ var app = express();
 var hbs = exphbs.create({defaultLayout:'main'});
 
 /*Serial port init*/
-require('./serialPort.js');
-require('./dataSend.js');
+//require('./serialPort.js');
+//require('./dataSend.js');
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');

@@ -24,6 +24,9 @@ runeBox.controller('PlayerCtrl',function($scope, $http){
 	    mopidy.playback.getCurrentTlTrack().then(function(data){
 	    	handleTrack(data.track);
 	    });
+	    mopidy.library.browse({"uri":'file:///media/BLACK/FLAC'}).then(function(data){
+  			console.log(data);
+		});
 	});
 
 	mopidy.on("event:trackPlaybackStarted", function () {
@@ -31,20 +34,28 @@ runeBox.controller('PlayerCtrl',function($scope, $http){
 	    	handleTrack(data.track);
 	    });
 	})
+	$scope.getTrackList + function(){
+		mopidy.tracklist.getTracks()
+	    .then(function(data){
+	    	console.log(data);
+	    	$scope.currentTrackList = data;
+	    });
+	}
+
+	$http.get('/currentUser')
+	.then(function(user){
+		$scope.currentUser = user.data;
+	});
+
 	function handleTrack(track){
 	  $scope.currentTrack = track;
       $scope.currentTrack.formattedTime = moment(track.length).format('mm:ss');
       $scope.$apply();
-      console.log($scope.currentTrack);
 	}
 })
 
 runeBox.controller('HomeCtrl', function($scope, $http){
-	$http.get('/currentUser')
-	.then(function(user){
-		console.log(user);
-		$scope.currentUser = user.data;
-	});
+
 })
 
 runeBox.controller('RuneBoxCtrl', function($scope, $http){

@@ -1,8 +1,12 @@
 <div class="row" ng-controller="HomeCtrl">
 	<div clas="col-xs-12">
 		<ul class="list-unstyled">
-			<li>\{{currentUser.username}} <small>\{{currentUser.userstats.class}}</small></li>
-			<li>ratio: <small>\{{currentUser.userstats.ratio}}</small></li>
+			<form class="form-inline" method="get" action="/top">
+				 <div class="form-group">
+	    			<input type="text" class="form-control form-control-sm" id="searchInput" placeholder="Artist" name="artist">
+	  			</div>
+	  			<button type="submit" class="btn btn-primary btn-sm">Get</button>
+			</form>
 		</ul>
 	</div>
 </div>
